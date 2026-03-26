@@ -162,5 +162,17 @@ public class ApiTest {
         assertEquals(200, getResponse.getStatus());
     }
 
+    @Test
+    public void testGetCommentsException() {
+        HttpResponse<JsonNode> response = Unirest.get("https://jsonplaceholder.typicode.com/comments")
+                .asJson();
+
+        assertEquals(200, response.getStatus());
+        assertTrue(response.getBody().getArray().length() > 0);
+
+        // Force an exception
+        throw new RuntimeException("Test exception");
+    }
+
 
 }
